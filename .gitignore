@@ -1,0 +1,10 @@
+# Éditeurs et OS
+.vscode/
+*.code-workspace
+.DS_Store
+Thumbs.db
+
+# Build / dist
+dist/
+build/
+node_modules/
