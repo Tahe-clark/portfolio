@@ -1,0 +1,32 @@
+name: Déploiement sur GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier que index.html existe
+        run: test -f index.html || exit 1
+      - name: Vérifier que le nom Kelyan est présent
+        run: grep -i "Kelyan" index.html || exit 1
+      - run: echo "Tous les tests ont passé !"
+
+  deploy:
+    needs: test   # Le déploiement ne se lance que si les tests passent
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./
+      - uses: actions/deploy-pages@v4
