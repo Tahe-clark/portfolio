@@ -1,0 +1,12 @@
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Vérifier que index.html existe
+        run: test -f index.html || { echo "Erreur : index.html introuvable"; exit 1; }
+      
+      - name: Vérifier que le mot "Portfolio" est présent (test plus fiable)
+        run: grep -i "Portfolio" index.html || { echo "Erreur : mot 'Portfolio' introuvable dans index.html"; exit 1; }
+      
+      - run: echo "Tous les tests ont passé ! ✅"
