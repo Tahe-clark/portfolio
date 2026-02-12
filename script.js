@@ -9,4 +9,4 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Message de bienvenue dans la console (fun)
-console.log("Bienvenue sur le portfolio de Kelyan ! ");
+console.log("Bienvenue sur le portfolio de my ! ");
