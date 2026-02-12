@@ -23,7 +23,7 @@ jobs:
   deploy:
     needs: test
     environment: 
-    name: github-pages  # ← LIGNE OBLIGATOIRE AJOUTÉE ICI
+      name: github-pages  # ← LIGNE OBLIGATOIRE AJOUTÉE ICI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
