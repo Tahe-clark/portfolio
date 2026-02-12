@@ -14,19 +14,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Vérifier que index.html existe
+      - name: Vérifier index.html
         run: test -f index.html || exit 1
-      - name: Vérifier que le nom Kelyan est présent
+      - name: Vérifier contenu
         run: grep -i "Kelyan" index.html || exit 1
-      - run: echo "Tous les tests ont passé !"
+      - run: echo "Tests OK ! ✅"
 
   deploy:
-    needs: test   # Le déploiement ne se lance que si les tests passent
+    needs: test               # Ne déploie que si les tests passent
+    environment:              # ← LIGNE OBLIGATOIRE AJOUTÉE ICI
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./
-      - uses: actions/deploy-pages@v4
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
