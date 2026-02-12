@@ -14,17 +14,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Vérifier index.html
+      - name: Vérifier index.html existe
         run: test -f index.html || exit 1
       - name: Vérifier contenu
         run: grep -i "Kelyan" index.html || exit 1
       - run: echo "Tests OK ! ✅"
 
   deploy:
-    needs: test               # Ne déploie que si les tests passent
-    environment:              # ← LIGNE OBLIGATOIRE AJOUTÉE ICI
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    needs: test
+    environment: github-pages  # ← LIGNE OBLIGATOIRE AJOUTÉE ICI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
