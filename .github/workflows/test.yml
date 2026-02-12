@@ -3,8 +3,8 @@
     steps:
       - uses: actions/checkout@v4
       
-      - name: Vérifier que index.html existe
-        run: test -f index.html || { echo "Erreur : index.html introuvable"; exit 1; }
+      - name: Vérifier contenu obligatoire
+        run: grep -iq "Portfolio" index.html || exit 1
       
       - name: Vérifier que le mot "Portfolio" est présent (test plus fiable)
         run: grep -i "Portfolio" index.html || { echo "Erreur : mot 'Portfolio' introuvable dans index.html"; exit 1; }
